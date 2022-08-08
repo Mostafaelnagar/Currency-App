@@ -1,0 +1,12 @@
+<resources>
+  <!-- General Strings -->
+  <string name="connection_error">خطأ فى الاتصال</string>
+  <string name="no_internet">لا يوجد اتصال بالانترنت، برجاء المحاولة فى وقت لاحق</string>
+  <string name="retry">إعادة المحاولة</string>
+  <string name="some_error">حدث خطأ ما، برجاء المحاولة فى وقت لاحق</string>
+  <string name="log_out">تسجيل الخروج</string>
+
+  <string name="not_match_password">كلمتا المرور غير متطابقتان</string>
+  <string name="active">تفعيل الحساب</string>
+
+</resources>
