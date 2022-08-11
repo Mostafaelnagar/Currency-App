@@ -1,11 +1,12 @@
 package app.te.currency_app.core.di.module
 
 import android.content.Context
-import android.util.Log
 import app.te.currency_app.BuildConfig
+import app.te.currency_app.data.remote.Keys
+import com.chuckerteam.chucker.api.ChuckerCollector
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.readystatesoftware.chuck.ChuckInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,23 +24,18 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object RetrofitModule {
 
-  const val REQUEST_TIME_OUT: Long = 60
+  private const val REQUEST_TIME_OUT: Long = 60
 
   @Provides
   @Singleton
-  fun provideHeadersInterceptor() = run {
-    var userToken = ""
+  fun provideHeadersInterceptor() =
     Interceptor { chain ->
-      Log.e("provideHeadersInterceptor", "provideHeadersInterceptor: $userToken ")
       chain.proceed(
         chain.request().newBuilder()
-          .addHeader("Authorization", "Bearer $userToken")
-          .addHeader("Accept", "application/json")
-          .addHeader("lang", "ar")
+          .addHeader("apikey", Keys.apiKey())
           .build()
       )
     }
-  }
 
   @Provides
   @Singleton
@@ -62,15 +58,20 @@ object RetrofitModule {
         .connectTimeout(REQUEST_TIME_OUT, TimeUnit.SECONDS)
         .addInterceptor(headersInterceptor)
         .addNetworkInterceptor(logging)
-        .addInterceptor(ChuckInterceptor(context))
-        .build()
+        .addInterceptor(
+          ChuckerInterceptor.Builder(context)
+            .collector(ChuckerCollector(context))
+            .maxContentLength(250000L)
+            .redactHeaders(emptySet())
+            .alwaysReadResponseBody(false)
+            .build()
+        ).build()
     } else {
       OkHttpClient.Builder()
         .readTimeout(REQUEST_TIME_OUT, TimeUnit.SECONDS)
         .connectTimeout(REQUEST_TIME_OUT, TimeUnit.SECONDS)
         .addInterceptor(headersInterceptor)
         .addNetworkInterceptor(logging)
-        .addInterceptor(headersInterceptor)
         .build()
     }
   }
@@ -89,6 +90,6 @@ object RetrofitModule {
   fun provideRetrofit(gson: Gson, okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
     .client(okHttpClient)
     .addConverterFactory(GsonConverterFactory.create(gson))
-    .baseUrl(BuildConfig.API_BASE_URL)
+    .baseUrl(Keys.releaseBaseUrl())
     .build()
 }

@@ -6,5 +6,5 @@ enum class FailureStatus {
   NO_INTERNET,
   OTHER,
   NOT_ACTIVE,
-  TOKEN_EXPIRED
+  API_KEY_EXPIRED
 }

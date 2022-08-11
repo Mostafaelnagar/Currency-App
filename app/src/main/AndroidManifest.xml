@@ -30,6 +30,19 @@
       android:name="com.google.firebase.messaging.default_notification_color"
       android:resource="@color/colorPrimary" />
 
+    <activity
+      android:name=".presentation.home.HomeActivity"
+      android:configChanges="orientation|screenSize"
+      android:exported="true"
+      android:screenOrientation="sensor"
+      android:theme="@style/Theme.AppTheme"
+      android:windowSoftInputMode="adjustResize|stateHidden">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
 
   </application>
 

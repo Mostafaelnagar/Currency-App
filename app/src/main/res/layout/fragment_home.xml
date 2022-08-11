@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <data>
+
+    <variable
+      name="eventListener"
+      type="app.te.currency_app.presentation.home.listeners.ConvertListener" />
+
+    <variable
+      name="uiState"
+      type="app.te.currency_app.presentation.home.ui_state.ConvertUiState" />
+  </data>
+
+
+  <androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_from"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/colorDarkGray"
+        app:endIconDrawable="@drawable/ic_arrow_down"
+        app:endIconMode="custom"
+        app:helperTextTextColor="@color/black"
+        app:hintEnabled="false"
+        app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
+
+        <androidx.appcompat.widget.AppCompatEditText
+          android:id="@+id/ed_from"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:focusable="false"
+          android:hint="@string/from"
+          android:inputType="text"
+          android:onClick="@{()-> eventListener.showFromCurrencies()}"
+          android:text="@={uiState.convertCurrencyFrom}"
+          android:textAlignment="viewStart"
+          android:textAppearance="@style/TextAppearance.AppCompat.Small"
+          android:textColor="@color/black" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/ic_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="@{()->eventListener.swapValues()}"
+        android:src="@drawable/ic_swap" />
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_to"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/colorDarkGray"
+        app:endIconDrawable="@drawable/ic_arrow_down"
+        app:endIconMode="custom"
+        app:helperTextTextColor="@color/black"
+        app:hintEnabled="false"
+        app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
+
+        <androidx.appcompat.widget.AppCompatEditText
+          android:id="@+id/ed_to"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:focusable="false"
+          android:hint="@string/to"
+          android:inputType="text"
+          android:onClick="@{()-> eventListener.showToCurrencies()}"
+          android:text="@={uiState.convertCurrencyTo}"
+          android:textAlignment="viewStart"
+          android:textAppearance="@style/TextAppearance.AppCompat.Small"
+          android:textColor="@color/black" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <androidx.constraintlayout.helper.widget.Flow
+        android:id="@+id/flow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        app:constraint_referenced_ids="input_from,ic_switch,input_to"
+        app:flow_horizontalGap="@dimen/_4sdp"
+        app:flow_horizontalStyle="spread_inside"
+        app:layout_constraintTop_toTopOf="parent" />
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_from_value"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/colorDarkGray"
+        app:helperTextTextColor="@color/black"
+        app:hintEnabled="false"
+        app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
+
+        <androidx.appcompat.widget.AppCompatEditText
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:digits="0123456789."
+          android:hint="@string/from"
+          android:inputType="numberDecimal"
+          android:onTextChanged="@{uiState.onChange}"
+          android:text="@={uiState.convertCurrencyFromValue}"
+          android:textAlignment="viewStart"
+          android:textAppearance="@style/TextAppearance.AppCompat.Small"
+          android:textColor="@color/black" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_to_value"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/colorDarkGray"
+        app:helperTextTextColor="@color/black"
+        app:hintEnabled="false"
+        app:hintTextAppearance="@style/TextAppearance.AppCompat.Small">
+
+        <androidx.appcompat.widget.AppCompatEditText
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:digits="0123456789."
+          android:focusable="false"
+          android:hint="@string/to"
+          android:inputType="numberDecimal"
+          android:text="@={uiState.convertCurrencyToValue}"
+          android:textAlignment="viewStart"
+          android:textAppearance="@style/TextAppearance.AppCompat.Small"
+          android:textColor="@color/black" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <androidx.constraintlayout.helper.widget.Flow
+        android:id="@+id/flow1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_30sdp"
+        app:constraint_referenced_ids="input_from_value,input_to_value"
+        app:flow_horizontalGap="@dimen/_4sdp"
+        app:flow_horizontalStyle="spread_inside"
+        app:flow_verticalGap="@dimen/_4sdp"
+        app:flow_wrapMode="chain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/flow" />
+
+      <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginBottom="@dimen/_15sdp"
+        android:text="@string/details"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/flow1" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+  </androidx.core.widget.NestedScrollView>
+
+
+</layout>

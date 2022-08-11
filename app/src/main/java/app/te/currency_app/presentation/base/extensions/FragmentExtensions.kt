@@ -39,20 +39,14 @@ fun Fragment.handleApiError(
       noInternetAction?.invoke()
       showNoInternetAlert(requireActivity())
     }
-    FailureStatus.NOT_ACTIVE -> {
+    FailureStatus.API_KEY_EXPIRED -> {
       notActive?.invoke()
       failure.message?.let {
-        showNoApiErrorAlertWithAction(
+        showNoApiErrorAlert(
           requireActivity(),
-          it,
-          getString(R.string.active),
-          notActiveAction
+          it
         )
       }
-    }
-    FailureStatus.TOKEN_EXPIRED -> {
-      noDataAction?.invoke()
-      showNoApiErrorAlert(requireActivity(), getString(R.string.log_out))
     }
 
     else -> {

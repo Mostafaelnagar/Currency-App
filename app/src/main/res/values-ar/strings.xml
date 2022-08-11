@@ -8,5 +8,8 @@
 
   <string name="not_match_password">كلمتا المرور غير متطابقتان</string>
   <string name="active">تفعيل الحساب</string>
+  <string name="from">From</string>
+  <string name="to">To</string>
+  <string name="details">Details</string>
 
 </resources>

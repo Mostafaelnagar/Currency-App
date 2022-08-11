@@ -7,9 +7,7 @@ object Libraries {
 
   // Kotlin
   const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}"
-
-  // Java
-  const val javaInject = "javax.inject:javax.inject:${Versions.javaInject}"
+  const val Reflect = "org.jetbrains.kotlin:kotlin-reflect"
 
   // Arch Components
   const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
@@ -17,12 +15,6 @@ object Libraries {
   const val lifecycle = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}"
   const val viewModelState =
     "androidx.lifecycle:lifecycle-viewmodel-savedstate:${Versions.lifecycle}"
-  const val paging_version = "androidx.paging:paging-runtime:${Versions.paging_version}"
-  const val paging_version_ktx = "androidx.paging:paging-common-ktx:${Versions.paging_version}"
-  const val roomVersion = "androidx.room:room-runtime:${Versions.roomVersion}"
-  const val roomCompiler = "androidx.room:room-compiler:${Versions.roomVersion}"
-  const val roomktx = "androidx.room:room-ktx:${Versions.roomVersion}"
-  const val roomCommon = "androidx.room:room-common:${Versions.roomVersion}"
 
   // Kotlin Coroutines
   const val coroutinesCore =
@@ -34,15 +26,19 @@ object Libraries {
   const val datastore_preferences =
     "androidx.datastore:datastore-preferences:${Versions.datastore_preferences}"
   const val datastore_core = "androidx.datastore:datastore-core:${Versions.datastore_core}"
-  const val datastore_protobuf =
-    "com.google.protobuf:protobuf-javalite:${Versions.datastore_protobuf}"
+
+  //ROOM
+  const val roomVersion = "androidx.room:room-runtime:${Versions.roomVersion}"
+  const val roomCompiler = "androidx.room:room-compiler:${Versions.roomVersion}"
+  const val roomktx = "androidx.room:room-ktx:${Versions.roomVersion}"
+  const val roomCommon = "androidx.room:room-common:${Versions.roomVersion}"
 
   // Networking
   const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
   const val retrofitConverter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
   const val gson = "com.google.code.gson:gson:${Versions.gson}"
   const val interceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.interceptor}"
-  const val chuckLogging = "com.readystatesoftware.chuck:library:${Versions.chuckLogging}"
+  const val chuckLogging = "com.github.chuckerteam.chucker:library:${Versions.chuckLogging}"
 
   // UI
   const val materialDesign = "com.google.android.material:material:${Versions.materialDesign}"
@@ -60,35 +56,10 @@ object Libraries {
   const val localization =
     "com.zeugmasolutions.localehelper:locale-helper-android:${Versions.localization}"
   const val multidex = "androidx.multidex:multidex:${Versions.multidex}"
-  const val permissions = "com.afollestad.assent:core:${Versions.permissions}"
 
   // Hilt
   const val hilt = "com.google.dagger:hilt-android:${Versions.hiltVersion}"
   const val hiltDaggerCompiler = "com.google.dagger:hilt-android-compiler:${Versions.hiltVersion}"
-
-  // Map
-  const val map = "com.google.android.gms:play-services-maps:${Versions.map}"
-  const val playServicesLocation =
-    "com.google.android.gms:play-services-location:${Versions.playServicesLocation}"
-  const val rx = "io.reactivex.rxjava2:rxjava:${Versions.rx}"
-
-  //FireBase
-  const val firebase_platform = "com.google.firebase:firebase-bom:${Versions.firebase}"
-  const val firebase_messaging = "com.google.firebase:firebase-messaging-ktx"
-  const val firebase_auth_ktx = "com.google.firebase:firebase-auth-ktx"
-  const val firebase_auth = "com.google.android.gms:play-services-auth:${Versions.firebase_auth}"
-
-  //  const val facebook_auth = "com.facebook.android:facebook-login:${Versions.facebook_auth}"
-  const val facebook_auth = "com.facebook.android:facebook-android-sdk:${Versions.facebook_auth}"
-
-  //multi select media
-  const val ted_bottom_picker = "gun0912.ted:tedbottompicker:${Versions.ted_bottom_picker}"
-
-  //pin code
-  const val pin_code = "com.chaos.view:pinview:${Versions.pin_code}"
-
-  //smartteist
-  const val smartteist = "com.github.smarteist:autoimageslider:${Versions.smarteist}"
 
 
 }

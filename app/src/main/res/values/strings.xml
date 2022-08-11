@@ -14,5 +14,8 @@
   <string name="facebook_app_id" translatable="false">1027486111200196</string>
   <string name="fb_login_protocol_scheme" translatable="false">fb1234</string>
   <string name="facebook_client_token" translatable="false">21f5f6133b920f45f10e6e6aa82b87b3</string>
+  <string name="from">From</string>
+  <string name="to">To</string>
+  <string name="details">Details</string>
 
 </resources>

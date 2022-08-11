@@ -27,7 +27,6 @@ android {
       manifestPlaceholders["appName"] = "@string/app_name"
       manifestPlaceholders["appIcon"] = "@mipmap/ic_launcher_release"
       manifestPlaceholders["appRoundIcon"] = "@mipmap/ic_launcher_release_round"
-      buildConfigField("String", "API_BASE_URL", Config.Environments.debugBaseUrl)
     }
 
     signingConfigs {
@@ -48,8 +47,6 @@ android {
       manifestPlaceholders["appName"] = "@string/app_name"
       manifestPlaceholders["appIcon"] = "@mipmap/ic_launcher_release"
       manifestPlaceholders["appRoundIcon"] = "@mipmap/ic_launcher_release_round"
-
-      buildConfigField("String", "API_BASE_URL", Config.Environments.releaseBaseUrl)
     }
     buildTypes.all {
       proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
@@ -78,17 +75,31 @@ android {
   buildFeatures {
     viewBinding = true
   }
+  externalNativeBuild {
+    cmake {
+      path = file("CMakeLists.txt")
+    }
+  }
 }
 
 dependencies {
   implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-
+  implementation(Libraries.Reflect)
+  //Room
+  implementation(Libraries.roomVersion)
+  kapt(Libraries.roomCompiler)
+  implementation(Libraries.roomktx)
+  implementation(Libraries.roomCommon)
   // Networking
   implementation(Libraries.retrofit)
   implementation(Libraries.retrofitConverter)
   implementation(Libraries.gson)
   implementation(Libraries.interceptor)
   implementation(Libraries.chuckLogging)
+
+  //DATASTROE
+  implementation(Libraries.datastore_preferences)
+  implementation(Libraries.datastore_core)
 
   // Utils
   implementation(Libraries.playServices)
@@ -113,10 +124,6 @@ dependencies {
   // Kotlin Coroutines
   implementation(Libraries.coroutinesCore)
   implementation(Libraries.coroutinesAndroid)
-  //DATA STORE
-  implementation(Libraries.datastore_preferences)
-  implementation(Libraries.datastore_core)
-  implementation(Libraries.datastore_protobuf)
 
   // UI
   implementation(Libraries.materialDesign)

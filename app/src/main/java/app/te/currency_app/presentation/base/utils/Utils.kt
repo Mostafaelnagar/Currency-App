@@ -1,19 +1,15 @@
 package app.te.currency_app.presentation.base.utils
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.net.Uri
-import android.provider.Settings.Secure
 import android.widget.Toast
 import app.te.currency_app.R
 import com.tapadoo.alerter.Alerter
+import java.util.*
+import kotlin.reflect.full.memberProperties
 
 fun showMessage(context: Context, message: String?) {
   Toast.makeText(
@@ -45,35 +41,6 @@ fun showNoApiErrorAlert(activity: Activity, message: String) {
     .show()
 }
 
-fun showSuccessAlert(activity: Activity, message: String) {
-  Alerter.create(activity)
-    .setText(message)
-    .setIcon(R.drawable.ic_success)
-    .setBackgroundColorRes(R.color.green)
-    .enableClickAnimation(true)
-    .enableSwipeToDismiss()
-    .show()
-}
-
-fun showNoApiErrorAlertWithAction(
-  activity: Activity,
-  message: String,
-  positiveButtonText: String,
-  action: (() -> Unit)? = null
-) {
-  Alerter.create(activity)
-    .setText(message)
-    .setIcon(R.drawable.ic_api_warning)
-    .setBackgroundColorRes(R.color.red)
-    .enableClickAnimation(true)
-    .enableSwipeToDismiss()
-    .addButton(positiveButtonText, R.style.AlertButton) {
-      action?.let {
-        it()
-      }
-    }
-    .show()
-}
 
 fun showLoadingDialog(activity: Activity?, hint: String?): Dialog? {
   if (activity == null || activity.isFinishing) {
@@ -98,28 +65,10 @@ fun hideLoadingDialog(mProgressDialog: Dialog?, activity: Activity?) {
   }
 }
 
-@SuppressLint("HardwareIds")
-fun getDeviceId(context: Context): String {
-  return Secure.getString(context.contentResolver, Secure.ANDROID_ID)
+
+inline fun <reified T : Any> T.asMap(): Map<String, Any?> {
+  val props = T::class.memberProperties.associateBy { it.name }
+  return props.keys.associateWith { props[it]?.get(this) }
 }
 
-fun openBrowser(context: Context, url: String) {
-  var urlIntent = url
-  if (!url.startsWith("http://") && !url.startsWith("https://")) {
-    urlIntent = "https://$url"
-  }
-  val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(urlIntent))
-  context.startActivity(browserIntent)
-}
-
-fun openWhatsApp(context: Context, number: String) {
-  var urlIntent = "https://api.whatsapp.com/send?phone=".plus(number)
-  val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(urlIntent))
-  context.startActivity(browserIntent)
-}
-
-fun copyText(text: String, context: Context) {
-  val clipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-  val clipData = ClipData.newPlainText("text", text)
-  clipboardManager.setPrimaryClip(clipData)
-}
+fun getDefaultCurrency(): String = Currency.getInstance(Locale.getDefault()).symbol

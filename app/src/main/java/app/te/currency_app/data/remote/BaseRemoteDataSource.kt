@@ -13,49 +13,30 @@ import java.net.UnknownHostException
 import javax.inject.Inject
 
 open class BaseRemoteDataSource @Inject constructor() {
-  var gson: Gson = Gson()
-  protected fun getParameters(requestData: Any): Map<String, String> {
-    val params: MutableMap<String, String> = HashMap()
-    try {
-      val jsonObject = JSONObject(gson.toJson(requestData))
-      for (i in 0 until jsonObject.names().length()) {
-        params[jsonObject.names().getString(i)] =
-          jsonObject[jsonObject.names().getString(i)].toString() + ""
-      }
-    } catch (e: Exception) {
-      e.stackTrace
-    }
-    return params
-  }
 
   suspend fun <T> safeApiCall(apiCall: suspend () -> T): Resource<T> {
     println(apiCall)
     try {
       val apiResponse = apiCall.invoke()
       println(apiResponse)
-      when ((apiResponse as BaseResponse<*>).status) {
-        403 -> {
-          return Resource.Failure(FailureStatus.TOKEN_EXPIRED)
-        }
-        200 -> {
-          return Resource.Success(apiResponse)
-        }
-        401 -> {
-          return Resource.Failure(
-            FailureStatus.EMPTY,
-            (apiResponse as BaseResponse<*>).status,
-            (apiResponse as BaseResponse<*>).message
-          )
-        }
-        405 -> {
-          return Resource.Failure(
-            FailureStatus.NOT_ACTIVE,
-            (apiResponse as BaseResponse<*>).status,
-            (apiResponse as BaseResponse<*>).message
-          )
+      return when ((apiResponse as BaseResponse<*>).success) {
+        true -> {
+          Resource.Success(apiResponse)
         }
         else -> {
-          return Resource.Failure(FailureStatus.API_FAIL)
+          when (apiResponse.error.code) {
+            101 -> Resource.Failure(
+              FailureStatus.API_KEY_EXPIRED,
+              apiResponse.error.code,
+              apiResponse.error.info
+            )
+            else -> Resource.Failure(
+              FailureStatus.API_FAIL,
+              apiResponse.error.code,
+              apiResponse.error.info
+            )
+          }
+
         }
       }
     } catch (throwable: Throwable) {
@@ -68,7 +49,7 @@ open class BaseRemoteDataSource @Inject constructor() {
               val apiResponse = jObjError.toString()
               val response = Gson().fromJson(apiResponse, BaseResponse::class.java)
 
-              return Resource.Failure(FailureStatus.API_FAIL, throwable.code(), response.message)
+              return Resource.Failure(FailureStatus.API_FAIL, throwable.code(), response.error.info)
             }
             throwable.code() == 401 -> {
               val errorResponse = Gson().fromJson(
@@ -76,7 +57,7 @@ open class BaseRemoteDataSource @Inject constructor() {
                 ErrorResponse::class.java
               )
               return Resource.Failure(
-                FailureStatus.TOKEN_EXPIRED,
+                FailureStatus.API_KEY_EXPIRED,
                 throwable.code(),
                 errorResponse.detail
               )

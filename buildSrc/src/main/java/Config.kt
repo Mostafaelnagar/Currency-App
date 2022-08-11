@@ -15,12 +15,6 @@ object Config {
     const val navigationSafeArgs =
       "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.androidNavigation}"
     const val hilt = "com.google.dagger:hilt-android-gradle-plugin:${Versions.hiltVersion}"
-    const val google_services = "com.google.gms:google-services:${Versions.google_services}"
-    const val google_secret =
-      "com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:${Versions.google_secret}"
-    const val proto_buf =
-      "com.google.protobuf:protobuf-gradle-plugin:${Versions.classPath_protobuf}"
-
   }
 
   object Plugins {
@@ -31,21 +25,10 @@ object Config {
     const val hilt = "dagger.hilt.android.plugin"
     const val kotlin_extensions = "kotlin-android-extensions"
     const val ktLint = "org.jlleitschuh.gradle.ktlint"
-    const val google_services = "com.google.gms.google-services"
-    const val proto_buf = "com.google.protobuf"
-    const val google_secrets = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin"
   }
 
   object Modules {
     const val data = ":data"
     const val prettyPopUp = ":prettyPopUp"
-  }
-
-  object Environments {
-    const val roomDb = "\"protein_db\""
-    const val server_client_id =
-      "\"654641907466-q9fljq7lumaci6cf0nilsp3d03m23osq.apps.googleusercontent.com\""
-    const val releaseBaseUrl = "\"http://el3med.com/api/\""
-    const val debugBaseUrl = "\"http://test.el3amd.com/api/\""
   }
 }
