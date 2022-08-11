@@ -60,3 +60,24 @@ Android Currency App
 <img src="https://github.com/Mostafaelnagar/Currency-App/blob/master/images/convertion%20page.jpg">
 </div>
 
+:point_right: Code Style:
+-----------
+
+- Following official kotlin code style
+
+:point_right: Apply Git Hooks:
+-----------
+
+- To apply git hooks in order to automate process of styling and checking your code, just follow
+  this steps:
+  - Copy ```pre-commit``` file depending on your OS from ```myGitHooks```.
+  - Paste it into ```.git/hooks``` in your project.
+- Now each time you commit your changes, ```ktlintFormat``` and  ```ktlintCheck``` will
+  automatically run
+
+:point_right: Local Development:
+-----------
+
+- Here are some useful Gradle commands for executing this example:
+  - `./gradlew clean` - Deletes build directory.
+
