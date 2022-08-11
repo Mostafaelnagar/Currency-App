@@ -56,7 +56,7 @@ Android Currency App
 - Features required in App :
 - convert currencies from different bases
 
-<div align="center">
+<div align="center" height="50%">
 <img src="https://github.com/Mostafaelnagar/Currency-App/blob/master/images/convertion%20page.jpg">
 </div>
 
