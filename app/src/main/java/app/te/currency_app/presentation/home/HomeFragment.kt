@@ -8,8 +8,11 @@ import app.te.currency_app.databinding.FragmentHomeBinding
 import app.te.currency_app.domain.home.entity.SymbolConverted
 import app.te.currency_app.domain.utils.Resource
 import app.te.currency_app.presentation.base.BaseFragment
+import app.te.currency_app.presentation.base.extensions.check_connection.ConnectivityObserver
 import app.te.currency_app.presentation.base.extensions.handleApiError
 import app.te.currency_app.presentation.base.extensions.hideKeyboard
+import app.te.currency_app.presentation.base.extensions.showInternetAlert
+import app.te.currency_app.presentation.base.extensions.showNoInternetAlert
 import app.te.currency_app.presentation.base.showCurrencyPopUp
 import app.te.currency_app.presentation.base.utils.Constants
 import app.te.currency_app.presentation.base.utils.getCurrentDate
@@ -145,6 +148,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ConvertListener {
         amount = convertUiState.convertCurrencyFromValue
       )
     }
+  }
+
+  override fun checkConnection() {
+    lifecycleScope.launchWhenResumed {
+      (activity as HomeActivity).connectivityObserver.observe().collectLatest { status ->
+        when (status) {
+          ConnectivityObserver.Status.Available -> showInternetAlert()
+          else -> showNoInternetAlert()
+        }
+
+      }
+    }
+
   }
 
 }

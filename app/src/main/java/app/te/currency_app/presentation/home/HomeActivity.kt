@@ -9,14 +9,21 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import app.te.currency_app.R
 import app.te.currency_app.databinding.ActivityHomeBinding
 import app.te.currency_app.presentation.base.BaseActivity
+import app.te.currency_app.presentation.base.extensions.check_connection.ConnectivityObserver
+import app.te.currency_app.presentation.base.extensions.check_connection.NetworkConnectivityObserver
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeActivity : BaseActivity<ActivityHomeBinding>() {
   private lateinit var nav: NavController
+  lateinit var connectivityObserver: ConnectivityObserver
 
   override
   fun getLayoutId() = R.layout.activity_home
+
+  override fun setUpViews() {
+    connectivityObserver = NetworkConnectivityObserver(applicationContext)
+  }
 
   override
   fun setUpBottomNavigation() {

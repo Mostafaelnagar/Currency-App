@@ -31,6 +31,16 @@ fun showNoInternetAlert(activity: Activity) {
     .show()
 }
 
+fun showInternetAlert(activity: Activity) {
+  Alerter.create(activity)
+    .setTitle(activity.resources.getString(R.string.connection_success))
+    .setIcon(R.drawable.ic_internet_available)
+    .setBackgroundColorRes(R.color.green)
+    .enableClickAnimation(true)
+    .enableSwipeToDismiss()
+    .show()
+}
+
 fun showNoApiErrorAlert(activity: Activity, message: String) {
   Alerter.create(activity)
     .setText(message)

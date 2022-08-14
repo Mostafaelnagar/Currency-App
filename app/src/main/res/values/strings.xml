@@ -3,6 +3,7 @@
 
   <!-- General Strings -->
   <string name="connection_error">Connection Error</string>
+  <string name="connection_success">Connection Success</string>
   <string name="no_internet">No internet connection please try again later</string>
   <string name="retry">Retry</string>
   <string name="some_error">Some error occurred, try again later</string>

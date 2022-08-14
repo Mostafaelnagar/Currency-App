@@ -63,6 +63,7 @@ fun Fragment.handleApiError(
 fun Fragment.hideKeyboard() = hideSoftInput(requireActivity())
 
 fun Fragment.showNoInternetAlert() = showNoInternetAlert(requireActivity())
+fun Fragment.showInternetAlert() = showInternetAlert(requireActivity())
 
 fun Fragment.showMessage(message: String?) = showMessage(requireContext(), message)
 

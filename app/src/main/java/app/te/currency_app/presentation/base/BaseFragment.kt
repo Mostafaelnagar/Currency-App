@@ -69,7 +69,7 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment() {
       setUpViews()
       observeAPICall()
       setupObservers()
-
+      checkConnection()
       hasInitializedRootView = true
     }
   }
@@ -91,6 +91,7 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment() {
 
   open fun setupObservers() {}
 
+  open fun checkConnection() {}
   fun showLoading() {
     hideLoading()
     progressDialog = showLoadingDialog(requireActivity(), null)

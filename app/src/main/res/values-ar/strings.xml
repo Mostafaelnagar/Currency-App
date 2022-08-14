@@ -1,6 +1,7 @@
 <resources>
   <!-- General Strings -->
   <string name="connection_error">خطأ فى الاتصال</string>
+  <string name="connection_success">انت الان متصل بالانترنت</string>
   <string name="no_internet">لا يوجد اتصال بالانترنت، برجاء المحاولة فى وقت لاحق</string>
   <string name="retry">إعادة المحاولة</string>
   <string name="some_error">حدث خطأ ما، برجاء المحاولة فى وقت لاحق</string>
